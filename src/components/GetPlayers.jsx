@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import React from "react";
 import "../index.css";
+import DeletePlayer from "./DeletePlayer";
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -9,6 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Delete } from "@mui/icons-material";
 
 const GetPlayers = () => {
   const [players, setPlayers] = useState([]);
@@ -63,7 +65,14 @@ const GetPlayers = () => {
                     >
                       View Details
                     </Button>
-                    <Button size="small">Delete Player</Button>
+                    <Button
+                      size="small"
+                      onClick={() => {
+                        return DeletePlayer(player.id);
+                      }}
+                    >
+                      Delete Player
+                    </Button>
                   </CardActions>
                 </Card>
               </div>
