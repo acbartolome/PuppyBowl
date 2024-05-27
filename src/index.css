@@ -1,0 +1,11 @@
+.links {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+}
+
+.playerCard {
+  display: inline-block;
+  padding: 10px;
+  margin: 10px;
+}
