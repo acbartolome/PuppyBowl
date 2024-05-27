@@ -1,4 +1,4 @@
-import { useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import React from "react";
 import "../index.css";
@@ -13,9 +13,10 @@ import Typography from "@mui/material/Typography";
 const GetPlayers = () => {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchPlayers() {
+    const fetchPlayers = async () => {
       try {
         const response = await fetch(
           "https://fsa-puppy-bowl.herokuapp.com/api/2402-FTB-ET-WEB-PT/players"
@@ -28,7 +29,7 @@ const GetPlayers = () => {
         console.log(error);
         setLoading(false);
       }
-    }
+    };
     fetchPlayers();
   }, []);
 
@@ -41,9 +42,9 @@ const GetPlayers = () => {
           {players?.map((player) => {
             return (
               <div key={player.id} className="playerCard">
-                <Card sx={{ maxWidth: 345 }}>
+                <Card sx={{ maxWidth: 400 }}>
                   <CardMedia
-                    sx={{ height: 140 }}
+                    sx={{ height: 400, width: 300 }}
                     image={player.imageUrl}
                     title={player.name}
                   />
@@ -56,7 +57,12 @@ const GetPlayers = () => {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View Details</Button>
+                    <Button
+                      onClick={() => navigate(`/player/${player.id}`)}
+                      size="small"
+                    >
+                      View Details
+                    </Button>
                     <Button size="small">Delete Player</Button>
                   </CardActions>
                 </Card>
