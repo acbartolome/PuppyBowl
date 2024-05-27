@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import "../index.css";
 import DeletePlayer from "./DeletePlayer";
+import { useSelector } from "react-redux";
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -16,6 +17,11 @@ const GetPlayers = () => {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const searchTerm = useSelector((state) => state.searchTerm);
+
+  const filteredPlayers = players.filter((player) =>
+    player.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   useEffect(() => {
     const fetchPlayers = async () => {
@@ -41,7 +47,7 @@ const GetPlayers = () => {
         <h1>Loading players ...</h1>
       ) : (
         <div>
-          {players?.map((player) => {
+          {filteredPlayers?.map((player) => {
             return (
               <div key={player.id} className="playerCard">
                 <Card sx={{ maxWidth: 400 }}>

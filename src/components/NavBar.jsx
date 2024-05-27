@@ -11,6 +11,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 import "../index.css";
 import { Grow } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { setSearchTerm } from "../slice/searchTermSlice";
 
 const navLinks = [
   { name: "Home", url: "/" },
@@ -61,40 +63,38 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function NavBar() {
-
+  const dispatch = useDispatch();
   return (
-      <AppBar position="static">
-        <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography
-            //   style={{flexGrow: 0.5}}
-            className="title"
-            variant="h6"
-            component="div"
-          >
-            Puppy Bowl
-          </Typography>
-          <Box>
-            {navLinks.map((item) => (
-              <Link
-                to={item.url}
-                key={item.name}
-                className="links"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </Box>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              //   put on change here
-            />
-          </Search>
-        </Toolbar>
-      </AppBar>
+    <AppBar position="static">
+      <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
+        <Typography
+          //   style={{flexGrow: 0.5}}
+          className="title"
+          variant="h6"
+          component="div"
+        >
+          Puppy Bowl
+        </Typography>
+        <Box>
+          {navLinks.map((item) => (
+            <Link to={item.url} key={item.name} className="links">
+              {item.name}
+            </Link>
+          ))}
+        </Box>
+        <Search>
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Search…"
+            inputProps={{ "aria-label": "search" }}
+            type="search"
+            onChange={(e) => dispatch(setSearchTerm(e.target.value))}
+            //   put on change here
+          />
+        </Search>
+      </Toolbar>
+    </AppBar>
   );
 }
